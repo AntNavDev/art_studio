@@ -10,6 +10,7 @@ jQuery( document ).ready( function() {
 
         $( '#drawing_pad' ).mousedown( function( event ) {
             mouse_coor = getMousePos( canvas, event );
+            
             if( $( '#current_utensil_color' ).val() )
             {
                 ctx.strokeStyle = $( '#current_utensil_color' ).val();
