@@ -50,7 +50,7 @@
         </div>
 
         <div class="col-md-2">
-            
+            @include( 'app.sidebars.accents.basic-accents' )
         </div>
 
     </div>

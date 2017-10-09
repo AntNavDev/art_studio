@@ -10,7 +10,20 @@ jQuery( document ).ready( function() {
 
         $( '#drawing_pad' ).mousedown( function( event ) {
             mouse_coor = getMousePos( canvas, event );
-            ctx.strokeStyle = 'black';
+            if( $( '#current_utensil_color' ).val() )
+            {
+                ctx.strokeStyle = $( '#current_utensil_color' ).val();
+            }
+            else
+            {
+                ctx.strokeStyle = 'black';
+            }
+
+            if( $( '#current_utensil_width' ).val() )
+            {
+                ctx.lineWidth = $( '#current_utensil_width' ).val();
+            }
+
             ctx.beginPath();
             ctx.moveTo( mouse_coor.x, mouse_coor.y );
 
