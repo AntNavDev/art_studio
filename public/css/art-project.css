@@ -1,0 +1,7 @@
+#drawing_pad {
+    position: absolute;
+    top: 50px;
+    border: 1px solid blue;
+    height: 1000px;
+    width: 1600px;
+}
