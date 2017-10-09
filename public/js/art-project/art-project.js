@@ -1,37 +1,41 @@
 jQuery( document ).ready( function() {
     var canvas = document.getElementById( 'drawing_pad' );
-    console.log( canvas );
+    canvas.height = canvas.clientHeight;
+    canvas.width = canvas.clientWidth;
+
     if( canvas.getContext )
     {
         var ctx = canvas.getContext( '2d' );
-        ctx.fillStyle = 'rgba( 10, 10, 10, 0.5 )';
-        ctx.strokeStyle = 'black';
-        ctx.fillStyle = 'rgb(200, 0, 0)';
-        ctx.fillRect(10, 10, 50, 50);
+        var mouse_coor = {};
 
-        ctx.fillStyle = 'rgba(0, 0, 200, 0.5)';
-        ctx.fillRect(30, 30, 50, 50);
-//         $( '#drawing_pad' ).mousedown( function( event ) {
-//             ctx.beginPath();
-//             ctx.moveTo( event.pageX, event.pageY );
-// console.log(event.pageX + ' ' + event.pageY );
-//             // ctx.lineTo( event.pageX, event.pageY );
-//             // ctx.stroke();
+        $( '#drawing_pad' ).mousedown( function( event ) {
+            mouse_coor = getMousePos( canvas, event );
+            ctx.strokeStyle = 'black';
+            ctx.beginPath();
+            ctx.moveTo( mouse_coor.x, mouse_coor.y );
 
-//             // ctx.closePath();
-//         } );
+            $( '#drawing_pad' ).mousemove( function( event ) {
+                mouse_coor = getMousePos( canvas, event );
+                ctx.lineTo( mouse_coor.x, mouse_coor.y );
+                ctx.stroke();
+             } );
 
-        // $( '#drawing_pad' ).mousemove( function( event ) {
-        //     ctx.lineTo( event.pageX, event.pageY );
-        //     ctx.stroke();
-        //  } );
+            $( '#drawing_pad' ).mouseup( function( event ) {
+                ctx.strokeStyle = 'transparent';
+                ctx.closePath();
+            } );
 
-//         $( '#drawing_pad' ).mouseup( function( event ) {
-//             // ctx.lineTo( event.pageX, event.pageY );
-//             // ctx.stroke();
-// console.log(event.pageX + ' ' + event.pageY );
-//             ctx.closePath();
-//         } );
+        } );
+
+    }
+
+    function getMousePos( canvas, event )
+    {
+        var rect = canvas.getBoundingClientRect();
+        return {
+            x: ( event.clientX - rect.left ) / ( rect.right - rect.left ) * canvas.width,
+            y: ( event.clientY - rect.top ) / ( rect.bottom - rect.top ) * canvas.height
+        };
     }
 
 } );
