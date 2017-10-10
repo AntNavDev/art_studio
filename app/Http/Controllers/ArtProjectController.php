@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use File;
 use App\ArtProject;
 
 class ArtProjectController extends Controller
@@ -15,23 +16,30 @@ class ArtProjectController extends Controller
      */
     public function index()
     {
-        $projects = ArtProject::where( 'id', '>', '0' )->get();// Edit for specific user when functionality is implemented
+        $projects = ArtProject::where( 'user_id', '=', auth()->user()->id )->get();
+//VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+        if( ! File::exists( storage_path() . '/app/public/projects/user-' . auth()->user()->id ) )
+        {
+            File::makeDirectory( storage_path() . '/app/public/projects/user-' . auth()->user()->id, intval( '0777', 8 ), true, true );
+        }
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        \File::cleanDirectory( storage_path() . '/app/public/projects/user-' . auth()->user()->id );
 
         foreach( $projects as $index => $project )
         {
             $image = explode( 'base64,', $project->project_url );
-            file_put_contents('projects/image' . $index . '.png', base64_decode($image[ 1 ]) );
+            // dump( $image );
+            file_put_contents( storage_path() . '/app/public/projects/user-' . auth()->user()->id . '/image' . $index . '.png', base64_decode($image[ 1 ]) );
         }
-        $test = [];
-        $picsInFolder = \File::files( 'projects' );
+        $my_pics = [];
+        $picsInFolder = \File::files( 'storage/projects/user-' . auth()->user()->id );
 
         foreach( $picsInFolder as $path )
         {
-            $test[] = pathinfo( $path );
+            $my_pics[] = pathinfo( $path );
         }
-        // dd( $test );
 
-        return view( 'art-project.index', compact( 'test' ) );
+        return view( 'art-project.index', compact( 'my_pics' ) );
     }
 
     /**
@@ -52,8 +60,10 @@ class ArtProjectController extends Controller
      */
     public function store(Request $request)
     {
+        // dd(  );
         $new_art_project = ArtProject::create([
-            'project_url' => $request[ 'image_data' ]
+            'project_url' => $request[ 'image_data' ],
+            'user_id'     => auth()->user()->id,
         ]);
 
         $new_art_project->save();

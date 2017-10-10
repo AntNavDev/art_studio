@@ -13,6 +13,7 @@
 
         </canvas>
         <input id="image_data" name="image_data" type="hidden" value="">
+        <input id="user_id" name="user_id" type="hidden" value="{{ Auth::user()->id }}">
         <button type="submit" id="save_image">Save Photo</button>
     </form>
 @endsection

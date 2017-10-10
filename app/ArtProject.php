@@ -13,6 +13,11 @@ class ArtProject extends Model
      * @var array
      */
     protected $fillable = [
-        'project_url',
+        'project_url', 'user_id',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo('App\User' );
+    }
 }

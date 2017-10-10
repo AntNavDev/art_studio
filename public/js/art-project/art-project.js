@@ -45,29 +45,6 @@ jQuery( document ).ready( function() {
 
     }
 
-    // $( '#save_image' ).on( 'click', function() {
-    //     var image_url = canvas.toDataURL();
-
-    //     $.ajax({
-    //         headers: {
-    //             'X-CSRF-TOKEN': $( 'meta[name="csrf-token"]' ).attr( 'content' )
-    //         },
-    //         type: $( this ).attr( 'method' ),
-    //         success: function(data){
-    //             console.log('Success!');
-    //             console.log( data );
-    //         },
-    //         error: function(error, err_str){
-    //             console.log(error);
-    //             console.log(err_str);
-    //         },
-    //         url: $( this ).attr( 'action' ),
-    //         data: { 
-    //                 customer_comment: image_url
-    //         }
-    //     });
-    // } );
-
     function getMousePos( canvas, event )
     {
         var rect = canvas.getBoundingClientRect();
