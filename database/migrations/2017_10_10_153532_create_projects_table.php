@@ -15,7 +15,6 @@ class CreateProjectsTable extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->increments('id');
-            // $table->binary( 'project_url' ); //might need to change to binary type
             $table->timestamps();
         });
 

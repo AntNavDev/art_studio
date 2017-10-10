@@ -15,15 +15,23 @@ class ArtProjectController extends Controller
      */
     public function index()
     {
-        $projects = ArtProject::where( 'id', '>', '0' )->get();
+        $projects = ArtProject::where( 'id', '>', '0' )->get();// Edit for specific user when functionality is implemented
 
         foreach( $projects as $index => $project )
         {
             $image = explode( 'base64,', $project->project_url );
             file_put_contents('projects/image' . $index . '.png', base64_decode($image[ 1 ]) );
         }
+        $test = [];
+        $picsInFolder = \File::files( 'projects' );
 
-        return view( 'art-project.index', compact( 'projects' ) );
+        foreach( $picsInFolder as $path )
+        {
+            $test[] = pathinfo( $path );
+        }
+        // dd( $test );
+
+        return view( 'art-project.index', compact( 'test' ) );
     }
 
     /**

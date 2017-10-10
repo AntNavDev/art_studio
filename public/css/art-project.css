@@ -5,3 +5,8 @@
     height: 1000px;
     width: 1600px;
 }
+.project_thumbnail {
+    width: 250px;
+    height: auto;
+    border: 1px solid #000000;
+}
