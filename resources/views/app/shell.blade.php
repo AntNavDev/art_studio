@@ -22,7 +22,7 @@
     <title>{{ config( 'app.name' ) }}</title>
 </head>
 
-<body>
+<body class="container-fluid">
     <div class="row">
 
         <div id="homepage_sidebar" class="col-md-2">
