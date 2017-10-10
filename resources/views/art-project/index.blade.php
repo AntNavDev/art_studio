@@ -7,7 +7,9 @@
 @section( 'content' )
     <p><a href="{{ route( 'art-project.create' ) }}">Create a new project</a></p>
     @foreach( $my_pics as $pic )
-        <img src="{{ URL::to( '/' ) . '/' . $pic[ 'dirname' ] . '/' . $pic[ 'basename' ] }}" class="project_thumbnail">
+        <a href="{{ route( 'art-project.edit', $pic[ 'index' ] ) }}">
+            <img src="{{ URL::to( '/' ) . '/' . $pic[ 'dirname' ] . '/' . $pic[ 'basename' ] }}" class="project_thumbnail">
+        </a>
     @endforeach
 @endsection
 

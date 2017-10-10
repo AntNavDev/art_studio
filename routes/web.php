@@ -21,5 +21,7 @@ Route::get('/', function () {
     return view('home/index');
 })->name( 'homepage' );
 
+// Route::get( 'art-project/{art-project}', 'ArtProjectController@edit' )->name( 'art-project.edit' );
+
 Auth::routes();
 

@@ -17,26 +17,26 @@ class ArtProjectController extends Controller
     public function index()
     {
         $projects = ArtProject::where( 'user_id', '=', auth()->user()->id )->get();
-//VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+
         if( ! File::exists( storage_path() . '/app/public/projects/user-' . auth()->user()->id ) )
         {
             File::makeDirectory( storage_path() . '/app/public/projects/user-' . auth()->user()->id, intval( '0777', 8 ), true, true );
         }
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
         \File::cleanDirectory( storage_path() . '/app/public/projects/user-' . auth()->user()->id );
 
         foreach( $projects as $index => $project )
         {
             $image = explode( 'base64,', $project->project_url );
-            // dump( $image );
             file_put_contents( storage_path() . '/app/public/projects/user-' . auth()->user()->id . '/image' . $index . '.png', base64_decode($image[ 1 ]) );
         }
         $my_pics = [];
         $picsInFolder = \File::files( 'storage/projects/user-' . auth()->user()->id );
 
-        foreach( $picsInFolder as $path )
+        foreach( $picsInFolder as $index => $path )
         {
-            $my_pics[] = pathinfo( $path );
+            $my_pics[ $index ] = pathinfo( $path );
+            $my_pics[ $index ][ 'index' ] = $index;
         }
 
         return view( 'art-project.index', compact( 'my_pics' ) );
@@ -60,7 +60,6 @@ class ArtProjectController extends Controller
      */
     public function store(Request $request)
     {
-        // dd(  );
         $new_art_project = ArtProject::create([
             'project_url' => $request[ 'image_data' ],
             'user_id'     => auth()->user()->id,
@@ -68,7 +67,7 @@ class ArtProjectController extends Controller
 
         $new_art_project->save();
 
-        return redirect()->back();
+        return redirect()->route( 'art-project.index' );
         
     }
 
@@ -89,9 +88,11 @@ class ArtProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit( $id )
     {
-        //
+        $art_project = ArtProject::find( $id );
+        
+        return view( 'art-project.edit', compact( 'art_project' ) );
     }
 
     /**
