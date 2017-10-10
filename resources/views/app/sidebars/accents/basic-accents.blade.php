@@ -1,4 +1,4 @@
-@if( Request::is( 'art-project/create' ) )
+@if( Request::is( 'art-project/*' ) )
     <script type="text/javascript" src="{{ asset( 'js/sidebars/artist-palette.js' ) }}"></script>
     <div>
         <p>Artist Palette</p>

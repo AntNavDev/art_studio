@@ -28,15 +28,14 @@ class ArtProjectController extends Controller
         foreach( $projects as $index => $project )
         {
             $image = explode( 'base64,', $project->project_url );
-            file_put_contents( storage_path() . '/app/public/projects/user-' . auth()->user()->id . '/image' . $index . '.png', base64_decode($image[ 1 ]) );
+            file_put_contents( storage_path() . '/app/public/projects/user-' . auth()->user()->id . '/' . $project->id . '.png', base64_decode($image[ 1 ]) );
         }
         $my_pics = [];
         $picsInFolder = \File::files( 'storage/projects/user-' . auth()->user()->id );
 
-        foreach( $picsInFolder as $index => $path )
+        foreach( $picsInFolder as $path )
         {
-            $my_pics[ $index ] = pathinfo( $path );
-            $my_pics[ $index ][ 'index' ] = $index;
+            $my_pics[] = pathinfo( $path );
         }
 
         return view( 'art-project.index', compact( 'my_pics' ) );
@@ -102,9 +101,22 @@ class ArtProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, ArtProject $art_project)
     {
-        //
+        $art_project->fill( [
+            'project_url' => $request[ 'image_data' ],
+        ] );
+
+        if( $art_project->save() )
+        {
+            $request->session()->flash( 'success', 'Canvas saved successfully!' );
+        }
+        else
+        {
+            $request->session()->flash( 'failure', 'Something went wrong. Please try again.' );   
+        }
+
+        return redirect()->route( 'art-project.edit', compact( 'art_project' ) );
     }
 
     /**
