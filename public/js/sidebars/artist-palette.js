@@ -11,6 +11,10 @@ jQuery( document ).ready( function() {
         $( '#current_utensil_color' ).val( $( this ).css( 'background-color' ) );    
     } );
 
+    $( '.change_background' ).on( 'click', function() {
+        $( '#drawing_pad' ).css( 'background-color', $( this ).css( 'background-color' ) );
+    } );
+
     // Brush changes
     $( '#utensil_width' ).on( 'change', function() {
         $( '#current_utensil_width' ).val( $( '#utensil_width' ).val() );

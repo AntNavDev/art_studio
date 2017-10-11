@@ -27,11 +27,28 @@
                 </div>
             </label>
         </div>
-        
-        <label for="utensil_width">Utensil Broadness
-            <input type="range" id="utensil_width" min="1" max="10" value="1">
-            <div id="utensil_width_value"></div>
-        </label>
+
+        <div>
+            <label for="background_palette">Background Color<br>
+                <div>
+                        <div id="background_color_red" class="color_red change_background"></div>
+                        <div id="background_color_orange" class="color_orange change_background"></div>
+                        <div id="background_color_yellow" class="color_yellow change_background"></div>
+                        <div id="background_color_green" class="color_green change_background"></div>
+                        <div id="background_color_blue" class="color_blue change_background"></div>
+                        <div id="background_color_purple" class="color_purple change_background"></div>
+                        <div id="background_color_white" class="color_white change_background"></div>
+                        <div id="background_color_black" class="color_black change_background"></div>
+                    </div>
+            </label>
+        </div>
+
+        <div>
+            <label for="utensil_width">Utensil Broadness
+                <input type="range" id="utensil_width" min="1" max="10" value="1">
+                <div id="utensil_width_value"></div>
+            </label>
+        </div>
 
     </div>
     <div>

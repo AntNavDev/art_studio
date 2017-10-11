@@ -4,6 +4,12 @@
     margin: 3px;
     border: 1px solid #839DA5;
 }
+.change_background {
+    float: left;
+    display: inline-block;
+    margin: 3px;
+    border: 1px solid #839DA5;   
+}
 .color_red {
     height: 15px;
     width: 15px;
