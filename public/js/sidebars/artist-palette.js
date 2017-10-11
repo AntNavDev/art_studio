@@ -21,4 +21,8 @@ jQuery( document ).ready( function() {
         $( '#utensil_width_value' ).text( $( '#utensil_width' ).val() );
     } );
 
+    $( '.utensil_action' ).on( 'click', function() {
+        $( '#current_utensil_action' ).val( $( this ).data( 'action' ) );
+    } );
+
 } );

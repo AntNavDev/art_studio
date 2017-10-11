@@ -6,40 +6,66 @@ jQuery( document ).ready( function() {
     if( canvas.getContext )
     {
         var ctx = canvas.getContext( '2d' );
-        var mouse_coor = {};
+        var start_point = {};
 
         $( '#drawing_pad' ).mousedown( function( event ) {
-            mouse_coor = getMousePos( canvas, event );
-            
-            if( $( '#current_utensil_color' ).val() )
+            start_point = getMousePos( canvas, event );
+            var current_action = $( '#current_utensil_action' ).val();
+
+            if( current_action == 'drawing_line' )
             {
-                ctx.strokeStyle = $( '#current_utensil_color' ).val();
+                if( $( '#current_utensil_color' ).val() )
+                {
+                    ctx.strokeStyle = $( '#current_utensil_color' ).val();
+                }
+                else
+                {
+                    ctx.strokeStyle = '#000000';
+                }
+
+                if( $( '#current_utensil_width' ).val() )
+                {
+                    ctx.lineWidth = $( '#current_utensil_width' ).val();
+                }
+
+                ctx.beginPath();
+                ctx.moveTo( start_point.x, start_point.y );
+
+                $( '#drawing_pad' ).mousemove( function( event ) {
+                    start_point = getMousePos( canvas, event );
+                    ctx.lineTo( start_point.x, start_point.y );
+                    ctx.stroke();
+                 } );
+
+                $( '#drawing_pad' ).mouseup( function( event ) {
+                    ctx.strokeStyle = 'transparent';
+                    ctx.closePath();
+
+                    $( '#image_data' ).val( canvas.toDataURL() );
+                } );
             }
-            else
+            else if( current_action == 'drawing_rectangle' )
             {
-                ctx.strokeStyle = 'black';
+                if( $( '#current_utensil_color' ).val() )
+                {
+                    ctx.strokeStyle = $( '#current_utensil_color' ).val();
+                }
+                else
+                {
+                    ctx.strokeStyle = '#000000';
+                }
+
+                ctx.beginPath();
+                ctx.moveTo( start_point.x, start_point.y );
+
+                $( '#drawing_pad' ).mouseup( function( event ) {
+                    var end_point = getMousePos( canvas, event );
+                    ctx.strokeRect( start_point.x, start_point.y, (end_point.x - start_point.x), (end_point.y - start_point.y) );
+
+                    $( '#image_data' ).val( canvas.toDataURL() );
+                } );
+
             }
-
-            if( $( '#current_utensil_width' ).val() )
-            {
-                ctx.lineWidth = $( '#current_utensil_width' ).val();
-            }
-
-            ctx.beginPath();
-            ctx.moveTo( mouse_coor.x, mouse_coor.y );
-
-            $( '#drawing_pad' ).mousemove( function( event ) {
-                mouse_coor = getMousePos( canvas, event );
-                ctx.lineTo( mouse_coor.x, mouse_coor.y );
-                ctx.stroke();
-             } );
-
-            $( '#drawing_pad' ).mouseup( function( event ) {
-                ctx.strokeStyle = 'transparent';
-                ctx.closePath();
-
-                $( '#image_data' ).val( canvas.toDataURL() );
-            } );
 
         } );
 

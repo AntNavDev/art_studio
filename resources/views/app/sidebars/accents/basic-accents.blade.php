@@ -50,8 +50,18 @@
             </label>
         </div>
 
+        <div>
+            <div>
+                <label for="utensil_action">
+                    <div id="action_line" data-action="drawing_line" class="utensil_action">line</div>
+                    <div id="action_square" data-action="drawing_rectangle" class="utensil_action">square</div>
+                </label>
+            </div>
+        </div>
+
     </div>
     <div>
+        <input id="current_utensil_action" type="hidden" value="drawing_line" >
         <input id="current_utensil_color" type="hidden" value="" >
         <input id="current_utensil_width" type="hidden" value="" >
     </div>
