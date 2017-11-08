@@ -54,7 +54,7 @@
             <div>
                 <label for="utensil_action">
                     <div id="action_line" data-action="drawing_line" class="utensil_action">line</div>
-                    <div id="action_square" data-action="drawing_rectangle" class="utensil_action">square</div>
+                    <div id="action_funk" data-action="drawing_funk" class="utensil_action">Funky Quad</div>
                 </label>
             </div>
         </div>

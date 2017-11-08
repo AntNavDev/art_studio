@@ -6,7 +6,6 @@ jQuery( document ).ready( function() {
     if( canvas.getContext )
     {
         var ctx = canvas.getContext( '2d' );
-        // vv These were used for the attempt at drawing a square during runtime vv
         var building_shape = false;
 
         $( '#drawing_pad' ).mousedown( function( event ) {
@@ -49,9 +48,9 @@ jQuery( document ).ready( function() {
                     $( '#drawing_pad' ).unbind( 'mousemove' );
                 } );
             }
-            else if( current_action == 'drawing_rectangle' )
+            else if( current_action == 'drawing_funk' )
             {
-                // Draw rectangle...
+                // Draw funky quad...
                 building_shape = true;
                 $( '#image_data' ).val( canvas.toDataURL() );
 
@@ -65,6 +64,7 @@ jQuery( document ).ready( function() {
                         clearRect() is clearing everything its covering.
                         This looks ok until you start to make a bigger rectangle smaller.
                         Causes 'hallway(?)' effect. <~~~~~~ (arbitrary term to explain what the pic is doing. I hope I don't try to look this up later...)
+                        <~~~ Took the cowards way out... ~~~> \_(._.')_/
                         */
                         // if( prev_rendering_coor )
                         // {
